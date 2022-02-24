@@ -3,6 +3,7 @@ ARG TAG
 RUN echo 'Install Dependencies' && \
     apk add --no-cache --upgrade \
     yarn \
+    python3 \
     git && \
     echo 'Install React-Ultimate-Resume' && \
     mkdir -p /app && \
