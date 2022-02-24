@@ -11,9 +11,7 @@ RUN echo 'Install Dependencies' && \
     apk del --purge git && \
     mv /app/react-ultimate-resume/* /app && \
     rm -r /app/react-ultimate-resume && \
-    yarn config delete proxy && \
-    npm config rm proxy && \
-    npm config rm https-proxy
+    yarn config delete proxy
 WORKDIR /app
 RUN yarn install
 EXPOSE 3000
