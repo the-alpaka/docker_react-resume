@@ -11,8 +11,7 @@ RUN echo 'Install Dependencies' && \
     apk del --purge git && \
     mv /app/react-ultimate-resume/* /app && \
     rm -r /app/react-ultimate-resume && \
-    yarn config delete proxy
 WORKDIR /app
-RUN yarn install --network-timeout 100000
+RUN yarn install --network-timeout 10000000
 EXPOSE 3000
 CMD ["yarn", "start"]
