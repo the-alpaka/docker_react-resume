@@ -13,6 +13,6 @@ RUN echo 'Install Dependencies' && \
     rm -r /app/react-ultimate-resume && \
     yarn config delete proxy
 WORKDIR /app
-RUN yarn install
+RUN yarn install --network-timeout 100000
 EXPOSE 3000
 CMD ["yarn", "start"]
