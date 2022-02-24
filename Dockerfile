@@ -12,6 +12,6 @@ RUN echo 'Install Dependencies' && \
     mv /app/react-ultimate-resume/* /app && \
     rm -r /app/react-ultimate-resume 
 WORKDIR /app
-RUN yarn install --network-timeout 100000000
+RUN yarn cache clean && yarn install --network-timeout 10000000000
 EXPOSE 3000
 CMD ["yarn", "start"]
