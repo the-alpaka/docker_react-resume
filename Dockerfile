@@ -1,7 +1,7 @@
 FROM alpine
 ARG TAG
 RUN echo 'Install Dependencies' && \
-    apk add --no-cache --upgrade \
+    apk add --no-cache --upgrade build-base \
     yarn \
     python3 \
     git && \
@@ -9,7 +9,7 @@ RUN echo 'Install Dependencies' && \
     mkdir -p /app && \
     cd /app && git clone -b v${TAG} https://github.com/welovedevs/react-ultimate-resume.git && \
     echo 'Cleanup Dependencies' && \
-    apk del --purge git && \
+    apk del --purge git build-base && \
     mv /app/react-ultimate-resume/* /app && \
     rm -r /app/react-ultimate-resume 
 WORKDIR /app
