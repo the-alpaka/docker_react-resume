@@ -1,5 +1,6 @@
 FROM alpine
 ARG TAG
+ENV MODE=readOnly
 RUN echo 'Install Dependencies' && \
     apk add --no-cache --upgrade build-base \
     yarn \
@@ -11,10 +12,9 @@ RUN echo 'Install Dependencies' && \
     echo 'Cleanup' && \
     apk del --purge git && \
     mv /app/react-ultimate-resume/* /app && \
-    rm -r /app/react-ultimate-resume && \
-    rm -r /app/yarn.lock
+    rm -r /app/react-ultimate-resume
 WORKDIR /app
 RUN yarn cache clean && yarn install --network-timeout 1000000000
 RUN apk del --purge build-base
 EXPOSE 3000
-CMD ["yarn", "start"]
+CMD ["yarn", "start", "--mode=${MODE}"]
