@@ -11,7 +11,8 @@ RUN echo 'Install Dependencies' && \
     echo 'Cleanup Dependencies' && \
     apk del --purge git build-base && \
     mv /app/react-ultimate-resume/* /app && \
-    rm -r /app/react-ultimate-resume 
+    rm -r /app/react-ultimate-resume && \
+    rm -r /app/yarn.lock
 WORKDIR /app
 RUN yarn cache clean && yarn install --network-timeout 1000000000
 EXPOSE 3000
