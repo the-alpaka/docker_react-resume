@@ -48,5 +48,5 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64/v8,linux/arm/v7
           push: true
-          tags: ${{ secrets.DOCKER_USER }}/${{ steps.getname.outputs.containerName }}:latest, ${{ secrets.DOCKER_USER }}/${{ steps.getname.outputs.containerName }}:${{ steps.getversion.outputs.version }}
+          tags: ${{ secrets.DOCKER_USER }}/${{ steps.getname.outputs.containerName }}:${{ steps.getversion.outputs.version }}, ${{ secrets.DOCKER_USER }}/${{ steps.getname.outputs.containerName }}:latest
           build-args: TAG=${{ steps.getversion.outputs.version }}
