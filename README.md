@@ -26,7 +26,7 @@ Create a file named `docker-compose.yml`, then run `docker-compose pull && docke
 ```yaml
 version: '3'
 services:
-  tabby:
+  web:
     image: thealpaka/react-resume
     container_name: react-resume
     ports:
