@@ -1,20 +1,25 @@
 FROM alpine
+
 ARG TAG
-ENV MODE=readOnly
-RUN echo 'Install Dependencies' && \
-    apk add --no-cache --upgrade build-base \
-    yarn \
-    python3 \
-    git && \
+ENV REACT_RESUME_MODE=edit
+
+RUN echo 'Install Build Dependencies' && \
+    apk add --no-cache --upgrade \
+    build-base git npm python3 && \
+    echo 'Install run-time packages' && \
+    apk add --no-cache --upgrade yarn && \
     echo 'Install React-Ultimate-Resume' && \
     mkdir -p /app && \
-    cd /app && git clone -b v${TAG} https://github.com/welovedevs/react-ultimate-resume.git && \
-    echo 'Cleanup' && \
-    apk del --purge git && \
-    mv /app/react-ultimate-resume/* /app && \
-    rm -r /app/react-ultimate-resume
-WORKDIR /app
-RUN yarn cache clean && yarn install --network-timeout 1000000000
-RUN apk del --purge build-base
+    cd /app && git clone -b v${TAG} https://github.com/welovedevs/react-ultimate-resume.git /app && \
+    rm -r /app/src/data/json_stub.json && \
+    echo 'Install Package Dependencies' && \
+    yarn install --network-timeout 1000000000 && \
+    echo 'Remove Build Dependencies' && \
+    apk del --purge build-base git npm python3 && \
+    mkdir -p /defaults
+COPY defaults/config.sh /defaults
+COPY defaults/resume.json /defaults
+CMD sh /defaults/config.sh
+
 EXPOSE 3000
-CMD ["yarn", "start", "--mode=${MODE}"]
+VOLUME /config
