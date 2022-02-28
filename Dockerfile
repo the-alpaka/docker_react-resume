@@ -17,8 +17,7 @@ RUN echo 'Install Build Dependencies' && \
     echo 'Remove Build Dependencies' && \
     apk del --purge build-base git npm python3 && \
     mkdir -p /defaults
-COPY defaults/config.sh /defaults
-COPY defaults/resume.json /defaults
+COPY defaults /defaults
 CMD sh /defaults/config.sh
 
 EXPOSE 3000
