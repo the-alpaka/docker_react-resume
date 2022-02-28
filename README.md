@@ -40,4 +40,4 @@ services:
 
 
 ## Credits
-All credits to Tabby goes to the devs at [https://github.com/welovedevs/react-ultimate-resume](https://github.com/welovedevs/react-ultimate-resume).
+All credits to react-ultimate-resume goes to the devs at [https://github.com/welovedevs/react-ultimate-resume](https://github.com/welovedevs/react-ultimate-resume).
