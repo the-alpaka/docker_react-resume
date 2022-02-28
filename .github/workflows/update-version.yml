@@ -1,0 +1,37 @@
+name: Update Version
+on:
+  schedule:
+    - cron: '* 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-version:
+    name: Update Version
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Get latest release
+      uses: rez0n/actions-github-release@main
+      id: version
+      env:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        repository: 'welovedevs/react-ultimate-resume'
+        type: 'latest'
+    
+    - name: Format version
+      id: latest
+      run: "version='${{ steps.version.outputs.release }}' && echo ::set-output name=version::${version/'v'/''} && mkdir params && echo ${version/'v'/''} > params/VERSION"
+
+    - name: Get current version
+      id: old_version
+      run: echo ::set-output name=version::$(cat params/VERSION)
+      
+    - run: echo ${{ steps.latest.outputs.version }} && echo ${{ steps.old_version.outputs.version }}
+
+    - name: Compare versions
+      if: $((${{ steps.latest.outputs.version }})) > $((${{ steps.old_version.outputs.version }}))
+      uses: test-room-7/action-update-file@v1
+      with:
+          file-path: params/VERSION
+          commit-msg: bot update
+          github-token: ${{ secrets.GITHUB_TOKEN }}
